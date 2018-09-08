@@ -19,7 +19,7 @@ public class EnemyScripts : MonoBehaviour {
 
 	private GameObject player;
 
-
+	private float timeElapsed;
 	// Use this for initialization
 	void Start () {
 
@@ -31,38 +31,24 @@ public class EnemyScripts : MonoBehaviour {
 		}
 		*/
 
-
+		player = GameObject.Find ("Player");
 
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-		/*
-		switch (CurrentDirection) {
-		case Direction.RIGHT:
-			transform.Translate (0.2f, 0f, 0f);
-			break;
-		case Direction.LEFT:
-			transform.Translate (-0.2f, 0f, 0f);
-			break;
-		case Direction.UP:
-			transform.Translate (0f, 0f, 0.2f);
-			break;
-		case Direction.DOWN:
-			transform.Translate (0f, 0f, -0.2f);
-			break;
+		if (CheckRedLight() == false) {
+			CheckPlayer ();
 		}
-		*/
-
-		CheckPlayer ();
+		Attack ();
 			
 	}
 
 
 	void CheckPlayer(){
 
-		player = GameObject.Find ("Player");
+		//player = GameObject.Find ("Player");
 
 		//Debug.Log (player.transform.position);
 
@@ -83,7 +69,6 @@ public class EnemyScripts : MonoBehaviour {
 			//disH = Mathf.Abs (disZ);
 
 
-
 			if (transform.position.x < player.transform.position.x) {
 				transform.Translate (0.05f, 0f, 0f);
 			} else{
@@ -100,10 +85,46 @@ public class EnemyScripts : MonoBehaviour {
 
 
 		}
-}
+	}
+
+	void Attack(){
+
+		timeElapsed += Time.deltaTime;
+
+		if (timeElapsed >= 1f) {
 
 
+			float dis = Vector3.Distance (player.transform.position, transform.position);
 
+			if (dis < 10f) {
+				GameManager.instance.PlayerHP -= 5;
+			}
+
+			timeElapsed = 0f;
+		}
+
+		
+	}
+		
+	bool CheckRedLight(){
+
+		float dis = Vector3.Distance (player.transform.position, transform.position);
+
+		if (dis < 15f) {
+
+			Ray ray = new Ray (transform.position, player.transform.position);
+			RaycastHit hit;
+
+			if (Physics.Raycast (ray, out hit)) {
+				if (hit.collider.tag == "RedRamp") {
+					Debug.Log ("ray");
+					return true;
+
+				} 
+			}
+		}
+		return false;
+	}
 
 
 	void OnCollisionEnter(Collision collision){
