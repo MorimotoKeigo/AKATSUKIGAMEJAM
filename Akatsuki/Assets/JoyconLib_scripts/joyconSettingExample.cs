@@ -30,6 +30,9 @@ public class joyconSettingExample : MonoBehaviour
 	public GameObject pointer;
 	public bool[] lights;
 
+	public AudioSource ashioto;
+	public float Speed;
+
 	//
 	float joyL_timer;
 	float joyR_timer;
@@ -79,25 +82,33 @@ public class joyconSettingExample : MonoBehaviour
 		}
 */
 
+		if (ashioto.isPlaying == true && Mathf.Abs (m_joyconL.GetStick () [0]) < 0.1f && Mathf.Abs (m_joyconL.GetStick () [1]) < 0.1f) {
+			ashioto.Stop ();
+		}
+		if (ashioto.isPlaying == false && (Mathf.Abs (m_joyconL.GetStick () [0]) > 0.1f || Mathf.Abs (m_joyconL.GetStick () [1]) > 0.1f)) {
+			ashioto.Play ();
+		}
+
 
 		if (m_joyconL.GetStick ()[0] > 0.1f) {
 			Debug.Log ("右");
-			this.transform.position += transform.right*0.1f*m_joyconL.GetStick ()[0];
+			//this.transform.position += transform.right*0.1f*m_joyconL.GetStick ()[0];
+			this.transform.position += transform.right*Speed*m_joyconL.GetStick ()[0];
 			//new Vector3 (m_joyconL.GetStick ()[0]*0.1f, 0, 0);
 		}
 		if (m_joyconL.GetStick ()[0] < -0.1f) {
 			Debug.Log ("左");
-			this.transform.position +=transform.right*0.1f*m_joyconL.GetStick ()[0];
+			this.transform.position +=transform.right*Speed*m_joyconL.GetStick ()[0];
 		}
 
 
 		if (m_joyconL.GetStick ()[1] > 0.1f) {
 			Debug.Log ("前");
-			this.transform.position += transform.forward*0.1f*m_joyconL.GetStick ()[1];
+			this.transform.position += transform.forward*Speed*m_joyconL.GetStick ()[1];
 		}
 		if (m_joyconL.GetStick ()[1] < -0.1f) {
 			Debug.Log ("後");
-			this.transform.position += transform.forward*0.1f*m_joyconL.GetStick ()[1];
+			this.transform.position += transform.forward*Speed*m_joyconL.GetStick ()[1];
 		}
 
 		if ( m_joyconL.GetButtonDown( Joycon.Button.DPAD_RIGHT )&&RotateFlag==-1)
@@ -217,7 +228,7 @@ public class joyconSettingExample : MonoBehaviour
 
 	public void vibration_L(int Type,float kyori){
 		joyL_timer += Time.deltaTime;
-		Debug.Log (joyL_timer);
+	//	Debug.Log (joyL_timer);
 		float tuyosa;
 		tuyosa = (50.0f - kyori) * 0.003f + 0.05f;
 		if (tuyosa > 0.3f) {
@@ -268,7 +279,7 @@ public class joyconSettingExample : MonoBehaviour
 
 	public void vibration_R(int Type,float kyori){
 		joyR_timer += Time.deltaTime;
-		Debug.Log (joyR_timer);
+	//	Debug.Log (joyR_timer);
 		float tuyosa;
 		tuyosa = (50.0f - kyori) * 0.003f + 0.05f;
 		if (tuyosa > 0.3f) {
