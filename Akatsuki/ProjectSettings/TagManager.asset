@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Stage
+  - UI_Stage
   layers:
   - Default
   - TransparentFX
