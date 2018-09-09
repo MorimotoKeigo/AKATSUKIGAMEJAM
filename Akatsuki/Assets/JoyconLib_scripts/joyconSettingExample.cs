@@ -15,9 +15,6 @@ public class joyconSettingExample : MonoBehaviour
 	private Joycon.Button?  m_pressedButtonR;
 
 
-
-
-
 	int RotateFlag=-1;
 	float mokuteki=0.0f;
 	//
@@ -36,6 +33,18 @@ public class joyconSettingExample : MonoBehaviour
 	//
 	float joyL_timer;
 	float joyR_timer;
+
+	// Y,X,A入力時に、Light_set_3Light_set_3dをコールする為
+	public Light_setting _ls;
+	// UIのマップ左上のオブジェクト、基準点
+	public Transform UILeftUP;
+	// 相対座標の為のfloat変数
+	private float diff_x;
+	private float diff_y;
+	// UI上のMAPの大きさ(WorldTransform)
+	private float UI_MAPwidth = 127.75f;
+	// WorldでのMAPの大きさ
+	private float MAPwidth = 12;
 
 
 	private void Start()
@@ -149,17 +158,20 @@ public class joyconSettingExample : MonoBehaviour
 		/////JoyConR
 		if ( m_joyconR.GetButtonDown( Joycon.Button.DPAD_RIGHT ))
 		{
-			// R右ボタンが押された
+			// R右ボタンが押された(Y):赤
+			convertUI_to_World(1);
 		}
 
 		if ( m_joyconR.GetButtonDown( Joycon.Button.DPAD_UP ))
 		{
-			// R上ボタンが押された
+			// R上ボタンが押された(X):青
+			convertUI_to_World(2);
 		}
 
 		if ( m_joyconR.GetButtonDown( Joycon.Button.DPAD_LEFT ))
 		{
-			// R左ボタンが押された
+			// R左ボタンが押された(A):白
+			convertUI_to_World(0);
 		}
 
 
@@ -182,26 +194,6 @@ public class joyconSettingExample : MonoBehaviour
 			pointer.transform.position += new Vector3 (0,m_joyconR.GetStick () [1] * 10f, 0);
 		}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 		if (RotateFlag >= 0) {
 			PlayerRound (RotateFlag);
 		}
@@ -211,7 +203,7 @@ public class joyconSettingExample : MonoBehaviour
 	}
 
 	private void PlayerRound(int ID){
-		
+
 		if (Mathf.Abs ((this.transform.eulerAngles.y - mokuteki)) < 1f) {
 			RotateFlag = -1;
 		} else {
@@ -223,7 +215,7 @@ public class joyconSettingExample : MonoBehaviour
 				transform.Rotate (new Vector3 (0, 1, 0), -10);
 			}
 		}
-			
+
 	}
 
 	public void vibration_L(int Type,float kyori){
@@ -326,11 +318,16 @@ public class joyconSettingExample : MonoBehaviour
 			}
 			break;
 		}
-
-
-
-
 	}
+
+	private void convertUI_to_World(int color) {
+		// 現在のポインターの位置と、基準点とのX,Yの差を取る
+		diff_x = pointer.transform.position.x - UILeftUP.position.x;
+		diff_y = pointer.transform.position.y - UILeftUP.position.y;
+
+		_ls.Light_set_3d( (diff_x * MAPwidth) / UI_MAPwidth, (diff_y * MAPwidth) / UI_MAPwidth, 0, color);
+	}
+
 
 
 
