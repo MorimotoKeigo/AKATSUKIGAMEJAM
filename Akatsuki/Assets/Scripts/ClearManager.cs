@@ -10,8 +10,8 @@ public class ClearManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		_gm = GameObject.Find("GameManager").GetComponent<GameManager>();
-		// time_text.text = _gm.remainTime.toString() + "秒残してクリア！";
+		//_gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+		time_text.text = GameManager.getClearTime().ToString()+"秒残してクリアした";
 	}
 
 	// Update is called once per frame
