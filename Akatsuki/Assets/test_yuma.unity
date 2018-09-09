@@ -791,7 +791,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!108 &863972569
 Light:
   m_ObjectHideFlags: 0
@@ -1314,8 +1314,8 @@ GameObject:
   - component: {fileID: 1507330437}
   - component: {fileID: 1507330438}
   m_Layer: 0
-  m_Name: Player(kari)
-  m_TagString: Untagged
+  m_Name: Player
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1419,7 +1419,9 @@ MonoBehaviour:
   pointer: {fileID: 1050319924}
   lights: 000000
   ashioto: {fileID: 1507330438}
-  Speed: 0.1
+  Speed: 0.22
+  _ls: {fileID: 0}
+  UILeftUP: {fileID: 0}
 --- !u!54 &1507330437
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1515,6 +1517,48 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!1001 &1603063499
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4078689170523942, guid: 75b1c437577074cbbbca26f046a720d5, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -41.98
+      objectReference: {fileID: 0}
+    - target: {fileID: 4078689170523942, guid: 75b1c437577074cbbbca26f046a720d5, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -3.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4078689170523942, guid: 75b1c437577074cbbbca26f046a720d5, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -60.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4078689170523942, guid: 75b1c437577074cbbbca26f046a720d5, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4078689170523942, guid: 75b1c437577074cbbbca26f046a720d5, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4078689170523942, guid: 75b1c437577074cbbbca26f046a720d5, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4078689170523942, guid: 75b1c437577074cbbbca26f046a720d5, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4078689170523942, guid: 75b1c437577074cbbbca26f046a720d5, type: 2}
+      propertyPath: m_RootOrder
+      value: 15
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 75b1c437577074cbbbca26f046a720d5, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1651372556
 GameObject:
   m_ObjectHideFlags: 0
@@ -1742,7 +1786,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &1954499073
 MeshRenderer:
   m_ObjectHideFlags: 0
