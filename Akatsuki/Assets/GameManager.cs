@@ -16,14 +16,15 @@ public class GameManager : MonoBehaviour {
 	public GameObject[] tresure;
 	public int tresure_num = 5;
 
-	public int RTime = 10;
+	public int RTime = 180;
 	//残り時間
-	public int remainTime;
+	public static int remainTime;
 	//現在の時間
 	private float currentTime;
 	//Cast
 	private int cTime;
 	private int oldTime;
+
 
 	private void Awake()
 	{
@@ -156,5 +157,9 @@ public class GameManager : MonoBehaviour {
 			}
 		}
 		*/
+	}
+
+	public static int getClearTime(){
+		return remainTime;
 	}
 }
