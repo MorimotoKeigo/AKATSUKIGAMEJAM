@@ -23,6 +23,13 @@ public class EnemyScripts : MonoBehaviour {
 
 	public AudioClip enemySound;
 
+
+	GameObject redRamp;
+	GameObject blueRamp;
+	GameObject whiteRamp;
+
+
+
 	// Use this for initialization
 	void Start () {
 
@@ -100,7 +107,7 @@ public class EnemyScripts : MonoBehaviour {
 			float dis = Vector3.Distance (player.transform.position, transform.position);
 
 			if (dis < 10f) {
-				SoundManager.instance.PlaySingleSound(enemySound);
+				//SoundManager.instance.PlaySingleSound(enemySound);
 				GameManager.instance.PlayerHP -= 5;
 			}
 
@@ -112,22 +119,20 @@ public class EnemyScripts : MonoBehaviour {
 		
 	bool CheckRedLight(){
 
-		float dis = Vector3.Distance (player.transform.position, transform.position);
 
-		if (dis < 15f) {
+		redRamp = GameObject.Find ("Light(red)");
 
-			Ray ray = new Ray (transform.position, player.transform.position);
-			RaycastHit hit;
+		if (redRamp != null) {
 
-			if (Physics.Raycast (ray, out hit)) {
-				if (hit.collider.tag == "RedRamp") {
-					Debug.Log ("ray");
-					return true;
+			float dis = Vector3.Distance (redRamp.transform.position, transform.position);
 
-				} 
+			if (dis < 15f) {
+				return true;
 			}
+			return false;
+		} else {
+			return false;
 		}
-		return false;
 	}
 
 
