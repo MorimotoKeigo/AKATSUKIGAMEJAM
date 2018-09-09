@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour {
 
 		InitGame();
 
-		DontDestroyOnLoad(gameObject);
+		//DontDestroyOnLoad(gameObject);
 	}
 
 	void Reset(){
@@ -114,7 +114,7 @@ public class GameManager : MonoBehaviour {
 
 
 	void GameClear(){
-		Debug.Log ("GameClear");
+		SceneManager.LoadScene("GameClear");
 	}
 
 	void GetTresure(){
