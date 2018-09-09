@@ -19,10 +19,14 @@ public class joyconSettingExample : MonoBehaviour
 	int RotateFlag=-1;
 	float mokuteki=0.0f;
 	//
-	public float shind_L_kyori = 50.0f;//
-	public int shindL_type = 0;//
+	public float shind_L_kyori = 50.0f;//近さの指標
+	public int shindL_type = -1;//最接近オブジェクトの種別：-1は初期(無振動),0は宝(有振動),1は敵(変振動)
 	public float shind_R_kyori = 50.0f;
-	public int shindR_type = 0;
+	public int shindR_type = -1;
+
+
+
+
 
 	// カーソル用ポインターUI
 	public RectTransform pointerRT;
@@ -36,6 +40,8 @@ public class joyconSettingExample : MonoBehaviour
 
 	public AudioSource ashioto;
 	public float Speed;
+
+
 
 	//
 	float joyL_timer;
@@ -66,6 +72,11 @@ public class joyconSettingExample : MonoBehaviour
 
 		m_joyconL = m_joycons.Find( c =>  c.isLeft );
 		m_joyconR = m_joycons.Find( c => !c.isLeft );
+
+
+		shindL_type = -1;
+		shind_R_kyori = 50.0f;
+		shindR_type = -1;
 	}
 
 	private void Update()
@@ -427,6 +438,13 @@ public class joyconSettingExample : MonoBehaviour
 	}
 
 	*/
+
+
+
+	public void near_object(){
+
+
+	}
 
 
 
