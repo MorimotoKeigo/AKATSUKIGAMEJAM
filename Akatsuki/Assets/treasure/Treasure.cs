@@ -16,8 +16,14 @@ public class Treasure : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		distance_PT=Vector3.Distance(this.gameObject.transform.position,Player.transform.position);
+		if (Player.GetComponent<joyconSettingExample> ().shind_L_kyori>distance_PT) {
+			Player.GetComponent<joyconSettingExample> ().shind_L_kyori = distance_PT;
+			Player.GetComponent<joyconSettingExample> ().shindL_type = 0;
+		}
 
 		if (distance_PT < 5.0f) {
+			Player.GetComponent<joyconSettingExample> ().shind_L_kyori = 50f;
+			Player.GetComponent<joyconSettingExample> ().shindL_type = -1;
 			Get_Treasure ();
 		}
 	}
