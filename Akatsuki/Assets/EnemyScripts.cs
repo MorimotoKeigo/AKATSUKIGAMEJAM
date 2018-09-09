@@ -24,6 +24,9 @@ public class EnemyScripts : MonoBehaviour {
 	public AudioClip enemySound;
 
 
+	public float distance_PE = 200f;
+
+
 	GameObject redRamp;
 	GameObject blueRamp;
 	GameObject whiteRamp;
@@ -52,6 +55,17 @@ public class EnemyScripts : MonoBehaviour {
 			CheckPlayer ();
 		}
 		Attack ();
+
+
+		distance_PE=Vector3.Distance(this.gameObject.transform.position,player.transform.position);
+		if (player.GetComponent<joyconSettingExample> ().shind_L_kyori>distance_PE) {
+			player.GetComponent<joyconSettingExample> ().shind_L_kyori = distance_PE;
+			player.GetComponent<joyconSettingExample> ().shindL_type = 1;
+		}
+		if (player.GetComponent<joyconSettingExample> ().shindL_type == 1) {
+			player.GetComponent<joyconSettingExample> ().shind_L_kyori = distance_PE;
+		}
+			
 			
 	}
 
