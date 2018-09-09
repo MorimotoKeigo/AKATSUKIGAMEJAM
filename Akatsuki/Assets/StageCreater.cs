@@ -11,6 +11,7 @@ public class StageCreater:MonoBehaviour{
 	//配置するオブジェクト
 	public GameObject floor;
 	public GameObject wall;
+	public GameObject tresure;
 
 
 	public GameObject stage;
@@ -49,6 +50,8 @@ public class StageCreater:MonoBehaviour{
 		Vector3 originPos = pos;
 		string stageTextData = textAsset.text;
 
+		GameManager.instance.tresure_num = 0;
+
 		foreach(char c in stageTextData){
 
 			GameObject obj = null;
@@ -66,10 +69,18 @@ public class StageCreater:MonoBehaviour{
 				obj.transform.parent = stage.transform;
 				pos.x += 10.0f;
 			}else if(c == 'T'){
-				//obj = Instantiate(tree, pos, Quaternion.Euler(0, 0, 0)) as GameObject;
-				//obj.name = "Tree";
-				//obj.tag = "Stage";
-				//pos.x += 10.0f;
+				obj = Instantiate(floor, pos, Quaternion.Euler(0, 90, 0)) as GameObject;
+				obj.name = "FLOOR";
+				obj.tag = "Stage";
+				obj.transform.parent = stage.transform;
+			
+				obj = Instantiate(tresure, new Vector3(pos.x, 0.5f,pos.z), Quaternion.Euler(0, 90, 0)) as GameObject;
+				obj.name = "Tresure";
+				obj.tag = "Stage";
+				pos.x += 10.0f;
+
+				GameManager.instance.tresure_num++;
+
 			}else if(c == '\n'){
 				pos.z -= 10.0f;
 				pos.x = originPos.x;

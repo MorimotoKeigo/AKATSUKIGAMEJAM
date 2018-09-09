@@ -25,6 +25,7 @@ public class Treasure : MonoBehaviour {
 
 	void Get_Treasure(){
 
+		GameManager.instance.tresure_num--;
 
 		//ここにGameEngineを呼び出す
 		Destroy (this.gameObject);
