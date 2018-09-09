@@ -43,7 +43,7 @@ public class StageCreater:MonoBehaviour{
 		pos.x += 5.0f;
 		pos.z -= 5.0f;
 
-		pos.y += 2.5f;
+		pos.y += 0f;//2.5f
 
 		Vector3 originPos = pos;
 		string stageTextData = textAsset.text;
