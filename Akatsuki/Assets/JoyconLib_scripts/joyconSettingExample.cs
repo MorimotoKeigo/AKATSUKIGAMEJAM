@@ -40,6 +40,10 @@ public class joyconSettingExample : MonoBehaviour
 	//
 	float joyL_timer;
 	float joyR_timer;
+	bool joyR_leftright=false;
+	bool joyR_updown=false;
+	float joyR_pad_time=0;
+	float joyR_pad_time_second=0;
 
 	// Y,X,A入力時に、Light_set_3Light_set_3dをコールする為
 	public Light_setting _ls;
@@ -161,7 +165,8 @@ public class joyconSettingExample : MonoBehaviour
 			this.transform.position += transform.forward*Speed*m_joyconL.GetStick ()[1];
 		}
 
-		if ( m_joyconL.GetButtonDown( Joycon.Button.DPAD_RIGHT )&&RotateFlag==-1)
+		if ( (m_joyconL.GetButtonDown( Joycon.Button.DPAD_RIGHT )||
+			m_joyconR.GetButtonDown( Joycon.Button.SHOULDER_2 ))&&RotateFlag==-1)
 		{
 			// 右ボタンが押された
 			//RotateFlag=1;
@@ -172,7 +177,8 @@ public class joyconSettingExample : MonoBehaviour
 			}
 			RotateFlag = 1;
 		}
-		if ( m_joyconL.GetButtonDown( Joycon.Button.DPAD_LEFT )&&RotateFlag==-1)
+		if ( (m_joyconL.GetButtonDown( Joycon.Button.DPAD_LEFT )||
+			m_joyconL.GetButtonDown( Joycon.Button.SHOULDER_2 ))&&RotateFlag==-1)
 		{
 			// 右ボタンが押された
 			//RotateFlag=1;
@@ -218,26 +224,34 @@ public class joyconSettingExample : MonoBehaviour
 			setLamp(0);
 		}
 
-
-		if (m_joyconR.GetStick ()[0] > 0.1f) {
+		joyR_pad_time++;
+		joyR_pad_time_second++;
+		if (m_joyconR.GetStick ()[0] > 0.2f&&joyR_pad_time>8f) {
+			joyR_pad_time = 0f;
 			Debug.Log ("右");
+			joyR_leftright = true;
 			// pointer.transform.position +=new Vector3 (m_joyconR.GetStick ()[0]*10f, 0, 0);
 			Vector2 pos = pointerRT.anchoredPosition;
 			if(pos.x >= 850) return;
 			pos.x += 40;
 			pointerRT.anchoredPosition = pos;
 		}
-		if (m_joyconR.GetStick ()[0] < -0.1f) {
+		if (m_joyconR.GetStick ()[0] < -0.2f&&joyR_pad_time>8f) {
+			joyR_pad_time = 0f;
 			Debug.Log ("左");
+			joyR_leftright = true;
 			// pointer.transform.position +=new Vector3 (m_joyconR.GetStick ()[0]*10f, 0, 0);
 			Vector2 pos = pointerRT.anchoredPosition;
 			if(pos.x <= 490) return;
 			pos.x -= 40;
 			pointerRT.anchoredPosition = pos;
 		}
+		if (joyR_leftright == true && (m_joyconR.GetStick () [0] < 0.2f && m_joyconR.GetStick () [0] > -0.2f)) {
+			joyR_leftright = false;
+		}
 
-
-		if (m_joyconR.GetStick ()[1] > 0.1f) {
+		if (m_joyconR.GetStick ()[1] > 0.2f&&joyR_pad_time_second>8f) {
+			joyR_pad_time_second = 0f;
 			Debug.Log ("前");
 			// pointer.transform.position +=new Vector3 (0,m_joyconR.GetStick ()[1]*10f, 0);
 			Vector2 pos = pointerRT.anchoredPosition;
@@ -245,7 +259,8 @@ public class joyconSettingExample : MonoBehaviour
 			pos.y += 40;
 			pointerRT.anchoredPosition = pos;
 		}
-		if (m_joyconR.GetStick () [1] < -0.1f) {
+		if (m_joyconR.GetStick () [1] < -0.2f&&joyR_pad_time_second>8f) {
+			joyR_pad_time_second = 0f;
 			Debug.Log ("後");
 			// pointer.transform.position += new Vector3 (0,m_joyconR.GetStick () [1] * 10f, 0);
 			Vector2 pos = pointerRT.anchoredPosition;
@@ -472,7 +487,7 @@ public class joyconSettingExample : MonoBehaviour
 
 		GUILayout.EndHorizontal();
 	}
+	*/
 
-*/
 
 }
