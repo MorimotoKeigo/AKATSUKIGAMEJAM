@@ -50,6 +50,8 @@ public class StageCreater:MonoBehaviour{
 		Vector3 originPos = pos;
 		string stageTextData = textAsset.text;
 
+		GameManager.instance.tresure_num = 0;
+
 		foreach(char c in stageTextData){
 
 			GameObject obj = null;
@@ -72,11 +74,12 @@ public class StageCreater:MonoBehaviour{
 				obj.tag = "Stage";
 				obj.transform.parent = stage.transform;
 			
-				obj = Instantiate(tresure, new Vector3(pos.x, 2f,pos.z), Quaternion.Euler(0, 90, 0)) as GameObject;
+				obj = Instantiate(tresure, new Vector3(pos.x, 0.5f,pos.z), Quaternion.Euler(0, 90, 0)) as GameObject;
 				obj.name = "Tresure";
 				obj.tag = "Stage";
 				pos.x += 10.0f;
 
+				GameManager.instance.tresure_num++;
 
 			}else if(c == '\n'){
 				pos.z -= 10.0f;

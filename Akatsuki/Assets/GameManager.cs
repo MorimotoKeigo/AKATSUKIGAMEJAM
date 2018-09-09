@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour {
 	public int EnemyAttckDamege;
 
 	public GameObject[] tresure;
-	public int tresure_num;
+	public int tresure_num = 5;
 
 	private void Awake()
 	{
@@ -44,9 +44,8 @@ public class GameManager : MonoBehaviour {
 
 		//tresure = GameObject.Find ("Tresure");
 		//tresure_num = tresure.GetLength ();
-		tresure_num = 5;
-
-		Debug.Log (tresure_num);
+		//tresure_num = 2;
+		Debug.Log ("Tresure_num"+tresure_num);
 	}
 
 	// Update is called once per frame
@@ -55,7 +54,11 @@ public class GameManager : MonoBehaviour {
 		if (PlayerHP < 0) {
 			Invoke ("GameOver", 2f);
 		} 
+		Debug.Log ("Tresure_num"+tresure_num);
 
+		if (tresure_num == 0) {
+			GameClear ();
+		}
 	}
 
 	void InitGame(){
@@ -86,6 +89,11 @@ public class GameManager : MonoBehaviour {
 
 	void GameOver(){
 		SceneManager.LoadScene("GameOver");
+	}
+
+
+	void GameClear(){
+		Debug.Log ("GameClear");
 	}
 
 	void GetTresure(){

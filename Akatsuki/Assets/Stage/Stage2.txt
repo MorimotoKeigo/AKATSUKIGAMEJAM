@@ -3,8 +3,8 @@
 #FF####FFFF#
 #FF######FF#
 #FFFF#FF#FF#
-#FFF#FFFFFF#
-#FFF#FF###F#
+#FTF#FFFFFF#
+#FTF#FF###F#
 #FFF#FFF#FF#
 #FFF#FFFFFF#
 #FFF#FFFFFF#
