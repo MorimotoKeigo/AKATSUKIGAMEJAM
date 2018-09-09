@@ -22,6 +22,18 @@ public class GameManager : MonoBehaviour {
 		}
 
 		InitGame();
+
+		DontDestroyOnLoad(gameObject);
+	}
+
+	void Reset(){
+
+		InitGame ();
+
+		StageCreater scripts = GameObject.Find ("StageCreater").GetComponent<StageCreater> ();
+		scripts.ResetStage ();
+	
+	
 	}
 
 	// Use this for initialization
@@ -31,7 +43,9 @@ public class GameManager : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-
+		if (PlayerHP < 0) {
+			Invoke ("Reset", 2f);
+		} 
 	}
 
 	void InitGame(){

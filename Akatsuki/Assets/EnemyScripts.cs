@@ -20,6 +20,9 @@ public class EnemyScripts : MonoBehaviour {
 	private GameObject player;
 
 	private float timeElapsed;
+
+	public AudioClip enemySound;
+
 	// Use this for initialization
 	void Start () {
 
@@ -97,6 +100,7 @@ public class EnemyScripts : MonoBehaviour {
 			float dis = Vector3.Distance (player.transform.position, transform.position);
 
 			if (dis < 10f) {
+				SoundManager.instance.PlaySingleSound(enemySound);
 				GameManager.instance.PlayerHP -= 5;
 			}
 
@@ -130,6 +134,7 @@ public class EnemyScripts : MonoBehaviour {
 	void OnCollisionEnter(Collision collision){
 		//Debug.Log ("call");
 
+		/*
 		Direction nextDirection;
 
 		nextDirection = Direction.LEFT;
@@ -148,5 +153,6 @@ public class EnemyScripts : MonoBehaviour {
 		}
 			
 		CurrentDirection = nextDirection;
+		*/
 	}
 }
