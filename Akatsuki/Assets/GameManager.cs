@@ -16,6 +16,15 @@ public class GameManager : MonoBehaviour {
 	public GameObject[] tresure;
 	public int tresure_num = 5;
 
+	public int RTime = 10;
+	//残り時間
+	public int remainTime;
+	//現在の時間
+	private float currentTime;
+	//Cast
+	private int cTime;
+	private int oldTime;
+
 	private void Awake()
 	{
 		if(instance == null){
@@ -41,7 +50,10 @@ public class GameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
+		//Time系
+		currentTime = 0;
+		remainTime = RTime;
+		cTime = 0;
 		//tresure = GameObject.Find ("Tresure");
 		//tresure_num = tresure.GetLength ();
 		//tresure_num = 2;
@@ -53,12 +65,21 @@ public class GameManager : MonoBehaviour {
 		
 		if (PlayerHP < 0) {
 			Invoke ("GameOver", 2f);
-		} 
+		}
+
+
+		if (remainTime == 0) {
+			Invoke ("GameClear",2f);
+		}
+
 		Debug.Log ("Tresure_num"+tresure_num);
 
 		if (tresure_num == 0) {
 			GameClear ();
 		}
+			
+		timeCount ();
+		Debug.Log (remainTime);
 	}
 
 	void InitGame(){
@@ -98,5 +119,42 @@ public class GameManager : MonoBehaviour {
 
 	void GetTresure(){
 		tresure_num--;
+	}
+
+
+	void timeCount()
+	{
+
+		//現在の時間
+		currentTime += Time.deltaTime;
+		//int型
+		cTime = (int)currentTime;
+
+
+		oldTime = cTime;
+
+		//残り時間
+		if (remainTime != 0) {
+			remainTime = RTime - cTime;
+		}
+
+		/*
+		if (timeText != null)
+		{
+			var displayTime = Mathf.Clamp(remainTime, 0, RTime - 5);
+			timeText.text = displayTime.ToString();
+			if(remainTime < 10) { timeText.color = Color.red; }
+
+			if (remainTime == 0)
+			{
+				if (timeText.text != "Finish!!")
+				{
+					SoundManager.instance.PlayRandomSound(finishSound);
+					cutInImage.SetActive(true);
+				}
+				timeText.text = "<size=60>Finish!!</size>";
+			}
+		}
+		*/
 	}
 }
