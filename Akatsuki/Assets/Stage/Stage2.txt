@@ -2,7 +2,7 @@
 #FFFFFFFFFF#
 #FF####FFFF#
 #FF######FF#
-#FFFFFFF#FF#
+#FFFF#FF#FF#
 #FFF#FFFFFF#
 #FFF#FF###F#
 #FFF#FFF#FF#

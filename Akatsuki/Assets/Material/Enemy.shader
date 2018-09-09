@@ -46,6 +46,7 @@
             {
                 st = (floor(st * n) + 0.5) / n;
                 float d = distance(0.5, st);
+          
                 return (1 + sin(d * 3 - _Time.y * 3.0)) * 0.5;
             }
 

@@ -45,6 +45,7 @@ public class StageCreater:MonoBehaviour{
 
 		pos.y += 0f;//2.5f
 
+
 		Vector3 originPos = pos;
 		string stageTextData = textAsset.text;
 
@@ -76,6 +77,17 @@ public class StageCreater:MonoBehaviour{
 				pos.x += 10.0f;
 			}
 		}
+	}
+
+	public void ResetStage(){
+		// Already StageData
+		GameObject[] stages = GameObject.FindGameObjectsWithTag("Stage");
+		foreach(GameObject stage in stages) {
+			GameObject.DestroyImmediate(stage);
+		}
+
+		createPos = Vector3.zero;
+		CreateStage(createPos);
 	}
 
 }
