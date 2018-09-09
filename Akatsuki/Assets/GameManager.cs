@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour {
 
 
 		if (remainTime == 0) {
-			Invoke ("GameClear",2f);
+			Invoke ("GameOver",2f);
 		}
 
 		Debug.Log ("Tresure_num"+tresure_num);
