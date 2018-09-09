@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Stage
   - UI_Stage
+  - RedRamp
   layers:
   - Default
   - TransparentFX

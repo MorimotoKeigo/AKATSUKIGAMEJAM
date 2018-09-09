@@ -1,17 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
 	public static GameManager instance = null;
-
 
 	//public
 	public int PlayerHP;
 	public int LightCount;
 
 	public int EnemyAttckDamege;
+
+	public GameObject[] tresure;
+	public int tresure_num;
 
 	private void Awake()
 	{
@@ -39,13 +42,20 @@ public class GameManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+		//tresure = GameObject.Find ("Tresure");
+		//tresure_num = tresure.GetLength ();
+		tresure_num = 5;
+
+		Debug.Log (tresure_num);
 	}
 
 	// Update is called once per frame
 	void Update () {
+		
 		if (PlayerHP < 0) {
-			Invoke ("Reset", 2f);
+			Invoke ("GameOver", 2f);
 		} 
+
 	}
 
 	void InitGame(){
@@ -72,5 +82,13 @@ public class GameManager : MonoBehaviour {
 		if (LightCount > 0) {
 			LightCount--;
 		}
+	}
+
+	void GameOver(){
+		SceneManager.LoadScene("GameOver");
+	}
+
+	void GetTresure(){
+		tresure_num--;
 	}
 }
