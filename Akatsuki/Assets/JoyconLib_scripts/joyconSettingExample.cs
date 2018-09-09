@@ -35,6 +35,14 @@ public class joyconSettingExample : MonoBehaviour
 	private float UIMapScale = 480f;
 	// 現実マップの1辺(World)
 	private float MapScale = 120f;
+
+
+	// ランプUIをグレーにするための変数
+	public Image Lamp0;
+	public Image Lamp1;
+	public Image Lamp2;
+
+
 	// public GameObject pointer;
 	public bool[] lights;
 
@@ -218,6 +226,7 @@ public class joyconSettingExample : MonoBehaviour
 		{
 			// R右ボタンが押された(Y):赤
 			// convertUI_to_World(1);
+			Lamp1.color = new Color(255.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f, 100.0f / 255.0f);
 			setLamp(1);
 		}
 
@@ -225,6 +234,7 @@ public class joyconSettingExample : MonoBehaviour
 		{
 			// R上ボタンが押された(X):青
 			// convertUI_to_World(2);
+			Lamp2.color = new Color(255.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f, 100.0f / 255.0f);
 			setLamp(2);
 		}
 
@@ -232,6 +242,7 @@ public class joyconSettingExample : MonoBehaviour
 		{
 			// R左ボタンが押された(A):白
 			// convertUI_to_World(0);
+			Lamp0.color = new Color(255.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f, 100.0f / 255.0f);
 			setLamp(0);
 		}
 
@@ -413,7 +424,7 @@ public class joyconSettingExample : MonoBehaviour
 		pos.x -= 450f;
 		pos.y -= -57f;
 		// +5fと-5fはオフセット値
-		_ls.Light_set_3d( (pos.x * MapScale) / UIMapScale + 5f, 5f, (pos.y * MapScale) / UIMapScale - 5f, color);
+		_ls.Light_set_3d( (pos.x * MapScale) / UIMapScale + 5f, 10f, (pos.y * MapScale) / UIMapScale - 5f, color);
 	}
 
 	/* パソコン用のランプ設置関数
