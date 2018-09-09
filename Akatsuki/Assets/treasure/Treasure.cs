@@ -20,7 +20,7 @@ public class Treasure : MonoBehaviour {
 			Player.GetComponent<joyconSettingExample> ().shind_L_kyori = distance_PT;
 			Player.GetComponent<joyconSettingExample> ().shindL_type = 0;
 		}
-		if (Player.GetComponent<joyconSettingExample> ().shindL_type == 1) {
+		if (Player.GetComponent<joyconSettingExample> ().shindL_type == 0) {
 			Player.GetComponent<joyconSettingExample> ().shind_L_kyori = distance_PT;
 		}
 
