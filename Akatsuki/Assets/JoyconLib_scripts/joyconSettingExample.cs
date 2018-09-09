@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class joyconSettingExample : MonoBehaviour
 {
@@ -23,8 +24,14 @@ public class joyconSettingExample : MonoBehaviour
 	public float shind_R_kyori = 50.0f;
 	public int shindR_type = 0;
 
-
-	public GameObject pointer;
+	// カーソル用ポインターUI
+	public RectTransform pointerRT;
+	// 壁は含まない正方形の1辺の長さ
+	// UIマップの1辺(Rect)
+	private float UIMapScale = 480f;
+	// 現実マップの1辺(World)
+	private float MapScale = 120f;
+	// public GameObject pointer;
 	public bool[] lights;
 
 	public AudioSource ashioto;
@@ -61,6 +68,40 @@ public class joyconSettingExample : MonoBehaviour
 	{
 		m_pressedButtonL = null;
 		m_pressedButtonR = null;
+
+		/* PC操作用
+
+		if(Input.GetKeyDown(KeyCode.RightArrow)) {
+			Vector2 pos = pointerRT.anchoredPosition;
+			if(pos.x >= 850) return;
+			pos.x += 40;
+			pointerRT.anchoredPosition = pos;
+		}
+		if(Input.GetKeyDown(KeyCode.LeftArrow)) {
+			Vector2 pos = pointerRT.anchoredPosition;
+			if(pos.x <= 490) return;
+			pos.x -= 40;
+			pointerRT.anchoredPosition = pos;
+		}
+		if(Input.GetKeyDown(KeyCode.UpArrow)) {
+			Vector2 pos = pointerRT.anchoredPosition;
+			if(pos.y >= -97) return;
+			pos.y += 40;
+			pointerRT.anchoredPosition = pos;
+		}
+		if(Input.GetKeyDown(KeyCode.DownArrow)) {
+			Vector2 pos = pointerRT.anchoredPosition;
+			if(pos.y <= -457) return;
+			pos.y -= 40;
+			pointerRT.anchoredPosition = pos;
+		}
+
+		if(Input.GetKeyDown(KeyCode.Space)) {
+			setLamp_pc();
+		}
+
+		 PC操作用
+		 */
 
 		if ( m_joycons == null || m_joycons.Count <= 0 ) return;
 
@@ -159,39 +200,58 @@ public class joyconSettingExample : MonoBehaviour
 		if ( m_joyconR.GetButtonDown( Joycon.Button.DPAD_RIGHT ))
 		{
 			// R右ボタンが押された(Y):赤
-			convertUI_to_World(1);
+			// convertUI_to_World(1);
+			setLamp(1);
 		}
 
 		if ( m_joyconR.GetButtonDown( Joycon.Button.DPAD_UP ))
 		{
 			// R上ボタンが押された(X):青
-			convertUI_to_World(2);
+			// convertUI_to_World(2);
+			setLamp(2);
 		}
 
 		if ( m_joyconR.GetButtonDown( Joycon.Button.DPAD_LEFT ))
 		{
 			// R左ボタンが押された(A):白
-			convertUI_to_World(0);
+			// convertUI_to_World(0);
+			setLamp(0);
 		}
 
 
 		if (m_joyconR.GetStick ()[0] > 0.1f) {
 			Debug.Log ("右");
-			pointer.transform.position +=new Vector3 (m_joyconR.GetStick ()[0]*10f, 0, 0);
+			// pointer.transform.position +=new Vector3 (m_joyconR.GetStick ()[0]*10f, 0, 0);
+			Vector2 pos = pointerRT.anchoredPosition;
+			if(pos.x >= 850) return;
+			pos.x += 40;
+			pointerRT.anchoredPosition = pos;
 		}
 		if (m_joyconR.GetStick ()[0] < -0.1f) {
 			Debug.Log ("左");
-			pointer.transform.position +=new Vector3 (m_joyconR.GetStick ()[0]*10f, 0, 0);
+			// pointer.transform.position +=new Vector3 (m_joyconR.GetStick ()[0]*10f, 0, 0);
+			Vector2 pos = pointerRT.anchoredPosition;
+			if(pos.x <= 490) return;
+			pos.x -= 40;
+			pointerRT.anchoredPosition = pos;
 		}
 
 
 		if (m_joyconR.GetStick ()[1] > 0.1f) {
 			Debug.Log ("前");
-			pointer.transform.position +=new Vector3 (0,m_joyconR.GetStick ()[1]*10f, 0);
+			// pointer.transform.position +=new Vector3 (0,m_joyconR.GetStick ()[1]*10f, 0);
+			Vector2 pos = pointerRT.anchoredPosition;
+			if(pos.y >= -97) return;
+			pos.y += 40;
+			pointerRT.anchoredPosition = pos;
 		}
 		if (m_joyconR.GetStick () [1] < -0.1f) {
 			Debug.Log ("後");
-			pointer.transform.position += new Vector3 (0,m_joyconR.GetStick () [1] * 10f, 0);
+			// pointer.transform.position += new Vector3 (0,m_joyconR.GetStick () [1] * 10f, 0);
+			Vector2 pos = pointerRT.anchoredPosition;
+			if(pos.y <= -457) return;
+			pos.y -= 40;
+			pointerRT.anchoredPosition = pos;
 		}
 
 		if (RotateFlag >= 0) {
@@ -320,6 +380,29 @@ public class joyconSettingExample : MonoBehaviour
 		}
 	}
 
+	// ランプ設置する関数
+	private void setLamp(int color) {
+		Vector2 pos = pointerRT.anchoredPosition;
+		// UIの左上のマップがRectTransform(450,-57)、この点を基準点とする
+		pos.x -= 450f;
+		pos.y -= -57f;
+		// +5fと-5fはオフセット値
+		_ls.Light_set_3d( (pos.x * MapScale) / UIMapScale + 5f, 5f, (pos.y * MapScale) / UIMapScale - 5f, color);
+	}
+
+	/* パソコン用のランプ設置関数
+	private void setLamp_pc() {
+		Vector2 pos = pointerRT.anchoredPosition;
+		// UIの左上のマップがRectTransform(450,-57)、この点を基準点とする
+		pos.x -= 450f;
+		pos.y -= -57f;
+		// +5fと-5fはオフセット値
+		_ls.Light_set_3d( (pos.x * MapScale) / UIMapScale + 5f, 5f, (pos.y * MapScale) / UIMapScale - 5f, 1);
+	}
+	*/
+
+	/*
+
 	private void convertUI_to_World(int color) {
 		// 現在のポインターの位置と、基準点とのX,Yの差を取る
 		diff_x = pointer.transform.position.x - UILeftUP.position.x;
@@ -327,6 +410,8 @@ public class joyconSettingExample : MonoBehaviour
 
 		_ls.Light_set_3d( (diff_x * MAPwidth) / UI_MAPwidth, (diff_y * MAPwidth) / UI_MAPwidth, 0, color);
 	}
+
+	*/
 
 
 
