@@ -34,8 +34,6 @@ public class UIStageCreater:MonoBehaviour{
 
 			GameObject obj = null;
 
-
-
 			if(c == 'F' || c == 'T'){
 				obj = Instantiate(floor_UI, Map_parent.transform) as GameObject;
 				obj.name = "UI_floor" + num;
